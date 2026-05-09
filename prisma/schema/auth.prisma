@@ -14,8 +14,10 @@ model User {
     sessions           Session[]
     accounts           Account[]
     patient            Patient?
+    doctor             Doctor?
 
-    @@unique([email])
+    @@index([email], name: "idx_doctor_email")
+    @@index([isDeleted], name: "idx_doctor_isDeleted")
     @@map("user")
 }
 
