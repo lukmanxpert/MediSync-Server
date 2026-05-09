@@ -1,4 +1,5 @@
-model Doctor {
+/**
+ * model Doctor {
     id            String  @id @default(uuid(7))
     name          String
     email         String  @unique
@@ -18,6 +19,7 @@ model Doctor {
     designation         String
     averageRating       Float  @default(0.0)
 
+    specialty String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
@@ -27,4 +29,27 @@ model Doctor {
     specialties DoctorSpecialty[]
 
     @@map("doctors")
+}
+
+ */
+
+import { Gender } from "../../../generated/prisma/enums";
+
+export interface ICreateDoctorPayload {
+  password: string;
+  doctor: {
+    name: string;
+    email: string;
+    profilePhoto?: string;
+    contactNumber?: string;
+    address?: string;
+    registrationNumber: string;
+    experience?: number;
+    gender: Gender;
+    appointmentFee: number;
+    qualification: string;
+    currentWorkingPlace: string;
+    designation: string;
+  };
+  specialties: string[];
 }
