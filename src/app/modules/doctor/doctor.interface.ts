@@ -1,4 +1,4 @@
-export interface IUpdateDoctor {
+export interface IUpdateDoctorPayload {
   name?: string;
   profilePhoto?: string;
   contactNumber?: string;

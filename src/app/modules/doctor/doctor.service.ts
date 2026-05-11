@@ -1,4 +1,5 @@
 import { prisma } from "../../lib/prisma";
+// import { IUpdateDoctorPayload } from "./doctor.interface";
 
 const getAllDoctors = async () => {
   // Logic to get all doctors
@@ -15,4 +16,15 @@ const getAllDoctors = async () => {
   return doctors;
 };
 
-export const DoctorService = { getAllDoctors };
+// const getDoctorById = async (id: string) => {};
+
+// const updateDoctor = async (id: string, payload: IUpdateDoctorPayload) => {};
+
+// const deleteDoctor = async (id: string) => {};  // soft delete by setting isDeleted to true
+
+export const DoctorService = {
+  getAllDoctors,
+//   getDoctorById,
+//   updateDoctor,
+//   deleteDoctor,
+};

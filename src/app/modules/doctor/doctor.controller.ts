@@ -14,6 +14,15 @@ const getAllDoctors = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// const getDoctorById = catchAsync(async (req: Request, res: Response) => {});
+
+// const updateDoctor = catchAsync(async (req: Request, res: Response) => {});
+
+// const deleteDoctor = catchAsync(async (req: Request, res: Response) => {});
+
 export const DoctorController = {
   getAllDoctors,
+//   getDoctorById,
+//   updateDoctor,
+//   deleteDoctor,
 };
