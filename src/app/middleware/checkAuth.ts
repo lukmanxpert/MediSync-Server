@@ -77,6 +77,11 @@ export const checkAuth =
               "Forbidden Access! You do not have permission to access this resource.",
             );
           }
+          req.user = {
+            userId: user.id,
+            email: user.email,
+            role: user.role,
+          };
         }
 
         const accessToken = CookieUtils.getCookie(req, "accessToken");
