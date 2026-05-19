@@ -383,6 +383,8 @@ const resetPassword = async (
   });
 };
 
+const googleLoginSuccess = async (session: Record<string, any>) => {};
+
 export const AuthService = {
   registerPatient,
   loginUser,
@@ -393,4 +395,5 @@ export const AuthService = {
   verifyEmail,
   forgetPassword,
   resetPassword,
+  googleLoginSuccess,
 };

@@ -4,9 +4,12 @@ import { prisma } from "./prisma";
 import { Role, UserStatus } from "../../generated/prisma/enums";
 import { bearer, emailOTP } from "better-auth/plugins";
 import { sendEmail } from "../utils/email";
+import { envVariables } from "../config/env";
 // If your Prisma file is located elsewhere, you can change the path
 
 export const auth = betterAuth({
+  baseURL: envVariables.BETTER_AUTH_URL,
+  secret: envVariables.BETTER_AUTH_SECRET,
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
@@ -14,6 +17,22 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: true,
     minPasswordLength: 6,
+  },
+  socialProviders: {
+    google: {
+      clientId: envVariables.GOOGLE_CLIENT_ID,
+      clientSecret: envVariables.GOOGLE_CLIENT_SECRET,
+      mapProfileToUser: () => {
+        return {
+          role: Role.PATIENT,
+          status: UserStatus.ACTIVE,
+          needPasswordChange: false,
+          emailVerified: true,
+          isDeleted: false,
+          deletedAt: null,
+        };
+      },
+    },
   },
   emailVerification: {
     sendOnSignIn: true,
@@ -102,8 +121,30 @@ export const auth = betterAuth({
       maxAge: 60 * 60 * 60 * 24, // 1 day in seconds
     },
   },
-  // trustedOrigins: [process.env.BETTER_AUTH_URL || "http://localhost:5000"],
-  // advanced: {
-  //   disableCSRFCheck: true, // Disable CSRF check for development purposes. Make sure to enable it in production.
+  // redirectURLs: {
+  //   signIn: ""
   // }
+
+  // trustedOrigins: [process.env.BETTER_AUTH_URL || "http://localhost:5000"],
+  advanced: {
+    // disableCSRFCheck: true, // Disable CSRF check for development purposes. Make sure to enable it in production.
+    cookies: {
+      state: {
+        attributes: {
+          sameSite: "None",
+          secure: true,
+          httpOnly: true,
+          path: "/",
+        },
+      },
+      sessionToken: {
+        attributes: {
+          sameSite: "None",
+          secure: true,
+          httpOnly: true,
+          path: "/",
+        },
+      },
+    },
+  },
 });
