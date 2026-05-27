@@ -121,11 +121,16 @@ export const auth = betterAuth({
       maxAge: 60 * 60 * 60 * 24, // 1 day in seconds
     },
   },
-  // redirectURLs: {
-  //   signIn: ""
-  // }
 
-  // trustedOrigins: [process.env.BETTER_AUTH_URL || "http://localhost:5000"],
+  redirectURLs: {
+    signIn: `${envVariables.BETTER_AUTH_URL}/api/v1/auth/google/success`,
+  },
+
+  trustedOrigins: [
+    process.env.BETTER_AUTH_URL || "http://localhost:5000",
+    envVariables.FRONTEND_URL,
+  ],
+
   advanced: {
     // disableCSRFCheck: true, // Disable CSRF check for development purposes. Make sure to enable it in production.
     cookies: {
