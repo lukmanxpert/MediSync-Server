@@ -6,12 +6,17 @@ import { sendResponse } from "../../shared/sendResponse";
 import status from "http-status";
 
 const createSpecialty = catchAsync(async (req: Request, res: Response) => {
-  const payload = req.body;
+  console.log(req.body);
+  console.log(req.file);
+  const payload = {
+    ...req.body,
+    icon: req.file?.path,
+  };
   const result = await SpecialtyService.createSpecialty(payload);
-  return sendResponse(res, {
+  sendResponse(res, {
     httpStatusCode: 201,
-    message: "Specialty created successfully",
     success: true,
+    message: "Specialty created successfully",
     data: result,
   });
 });
