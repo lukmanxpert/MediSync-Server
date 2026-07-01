@@ -5,16 +5,23 @@ interface IResponseData<T> {
   message: string;
   success: boolean;
   data?: T;
+  meta?: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
 }
 
 export const sendResponse = <T>(
   res: Response,
   responseData: IResponseData<T>,
 ) => {
-  const { httpStatusCode, message, success, data } = responseData;
+  const { httpStatusCode, message, success, data, meta } = responseData;
   return res.status(httpStatusCode).json({
     message,
     success,
     data,
+    meta,
   });
 };
